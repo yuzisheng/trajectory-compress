@@ -53,11 +53,11 @@ class DouglasPeucker:
 
 if __name__ == '__main__':
     data = []
-    with open("./data/traj.txt", "r") as f:
-        for line in f.readlines():
+    with open("data/1.txt", "r") as fr:
+        for line in fr.readlines():
             temp = line.split(",")
             data.append(Point(temp[0], float(temp[1]), float(temp[2])))
-    dp = DouglasPeucker(data, 10)
+    dp = DouglasPeucker(data, 0.5)
     res = dp.compress()
     for p in res:
         print("{},{},{}".format(p.pid, p.x, p.y))
