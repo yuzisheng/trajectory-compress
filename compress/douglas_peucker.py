@@ -1,6 +1,5 @@
 from math import sqrt
 from typing import List
-import matplotlib.pyplot as plt
 
 from common.point import Point
 
@@ -30,6 +29,7 @@ class DouglasPeucker:
         max_distance_index = 0
         for index in range(start_index + 1, end_index):
             distance = self.calc_height(self.points[start_index], self.points[end_index], self.points[index])
+            # print(distance, max_distance)
             if distance > max_distance:
                 max_distance = distance
                 max_distance_index = index
@@ -49,29 +49,3 @@ class DouglasPeucker:
         self.dp(i, j)
         self.compressed_points.append(self.points[j])
         return self.compressed_points
-
-
-if __name__ == '__main__':
-    data = []
-    with open("data/1.txt", "r") as fr:
-        for line in fr.readlines():
-            temp = line.split(",")
-            data.append(Point(temp[0], float(temp[1]), float(temp[2])))
-    dp = DouglasPeucker(data, 0.5)
-    res = dp.compress()
-    for p in res:
-        print("{},{},{}".format(p.pid, p.x, p.y))
-    print("compress rate: %.2f" % (len(res) / len(data)))
-    # 可视化
-    raw_x = [p.x for p in data]
-    raw_y = [p.y for p in data]
-    compressed_x = [p.x for p in res]
-    compressed_y = [p.y for p in res]
-    plt.subplot(1, 2, 1)
-    plt.plot(raw_x, raw_y, marker='o')
-    plt.title("RAW")
-    plt.subplot(1, 2, 2)
-    plt.plot(compressed_x, compressed_y, marker='o')
-    plt.title("COMPRESSED")
-    plt.show()
-    print("ok")

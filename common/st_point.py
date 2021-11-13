@@ -5,7 +5,7 @@ class STPoint:
         :param pid: 标识
         :param x: 经度
         :param y: 纬度
-        :param t: 时间
+        :param t: 十位时间戳
         """
         self.pid = pid
         self.x = x
